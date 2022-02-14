@@ -16,5 +16,7 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 TCS424_Wireless And Mobile Computing - Class Project (section 3)
-@Radchapol-ea-6288076   6288076/
-@pluemthnn              6288145\
+
+@Radchapol-ea-6288076   6288076
+
+@pluemthnn              6288145
