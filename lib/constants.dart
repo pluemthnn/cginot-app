@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const cBackgroundColor = Color.fromARGB(255, 12, 43, 87);
+const cBackgroundColor = Color.fromRGBO(37, 47, 63, 1);
 const cPrimaryColor = Color.fromARGB(255, 189, 181, 178);
 const cPrimaryLightColor = Color(0xFFFFECDF);
 const cPrimaryGradientColor = LinearGradient(
@@ -10,5 +10,6 @@ const cPrimaryGradientColor = LinearGradient(
 );
 const cSecondaryColor = Color(0xFF979797);
 const cTextColor = Color(0xFF757575);
+const cDefaultPadding = 20.0;
 
 const cAnimationDuration = Duration(milliseconds: 200);

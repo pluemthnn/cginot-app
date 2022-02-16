@@ -1,5 +1,6 @@
 import 'package:cginot_app/constants.dart';
 import 'package:cginot_app/routes.dart';
+import 'package:cginot_app/screens/chats/chats_screen.dart';
 // import 'package:cginot_app/screens/onboard/onboard_screen.dart';
 import 'package:cginot_app/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(color: cTextColor)),
         primarySwatch: Colors.blue,
       ),
-      initialRoute: ProfileScreen.routeName,
+      initialRoute: ChatsScreen.routeName,
       routes: routes,
       // home: OnboardScreen(),
     );
