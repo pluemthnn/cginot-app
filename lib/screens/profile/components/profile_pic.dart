@@ -15,8 +15,8 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         fit: StackFit.expand,
         children: [
-          CircleAvatar(
-            backgroundColor: Colors.amber.shade500,
+          const CircleAvatar(
+            backgroundColor: Color.fromRGBO(230, 230, 230, 100),
             // backgroundImage: AssetImage("assets/images ....")
           ),
           Positioned(

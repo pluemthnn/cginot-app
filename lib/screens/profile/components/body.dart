@@ -11,35 +11,30 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 50,
+          height: 100,
         ),
         ProfilePic(),
         const SizedBox(
           height: 50,
         ),
         ProfileMenu(
-          text: "Account",
-          icon: Icons.account_circle,
+          text: "My Topic",
+          icon: Icons.arrow_forward_ios_sharp,
           press: () => {Navigator.pushReplacementNamed(context, '/splash')},
         ),
         ProfileMenu(
-          text: "Notifications",
-          icon: Icons.notifications,
+          text: "Favourite",
+          icon: Icons.arrow_forward_ios_sharp,
           press: () => {Navigator.pushReplacementNamed(context, '/splash')},
         ),
         ProfileMenu(
           text: "Settings",
-          icon: Icons.settings,
+          icon: Icons.arrow_forward_ios_sharp,
           press: () => {Navigator.pushReplacementNamed(context, '/splash')},
         ),
         ProfileMenu(
-          text: "Help Center",
-          icon: Icons.help_rounded,
-          press: () => {Navigator.pushReplacementNamed(context, '/splash')},
-        ),
-        ProfileMenu(
-          text: "Log Out",
-          icon: Icons.logout,
+          text: "Switch Profile",
+          icon: Icons.arrow_forward_ios_sharp,
           press: () => {Navigator.pushReplacementNamed(context, '/splash')},
         ),
       ],

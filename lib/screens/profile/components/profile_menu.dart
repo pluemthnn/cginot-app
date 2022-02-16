@@ -21,21 +21,21 @@ class ProfileMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: cPrimaryColor,
+          primary: cBackgroundColor,
           padding: const EdgeInsets.all(23),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: const Color(0xFFF5F6F9),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: Color.fromARGB(169, 249, 250, 251),
         ),
         onPressed: press,
         child: Row(
           children: [
             const SizedBox(width: 5),
-            Icon(icon),
             const SizedBox(
               width: 10,
             ),
-            Expanded(child: Text(text))
+            Expanded(child: Text(text)),
+            Icon(icon),
           ],
         ),
       ),
