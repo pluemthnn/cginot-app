@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
         ProfileMenu(
           text: "My Topic",
           icon: Icons.arrow_forward_ios_sharp,
-          press: () => {Navigator.pushReplacementNamed(context, '/splash')},
+          press: () => {Navigator.pushReplacementNamed(context, '/chats')},
         ),
         ProfileMenu(
           text: "Favourite",

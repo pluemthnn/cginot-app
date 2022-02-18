@@ -1,9 +1,7 @@
-import 'package:cginot_app/constants.dart';
-import 'package:cginot_app/models/char.dart';
+import 'package:cginot_app/models/chat.dart';
 // import 'package:cginot_app/components/filled_outline_button.dart';
 // import 'package:cginot_app/screens/messages/message_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'chat_card.dart';
 
 class Body extends StatelessWidget {
