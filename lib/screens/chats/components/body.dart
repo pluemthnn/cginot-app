@@ -11,22 +11,22 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(
-              cDefaultPadding, 0, cDefaultPadding, cDefaultPadding),
-          color: cPrimaryColor,
-          child: Row(
-            children: [
-              // FillOutlineButton(press: () {}, text: "Recent Message"),
-              // SizedBox(width: cDefaultPadding),
-              // FillOutlineButton(
-              //   press: () {},
-              //   text: "Active",
-              //   isFilled: false,
-              // ),
-            ],
-          ),
-        ),
+        // Container(
+        //   padding: const EdgeInsets.fromLTRB(
+        //       cDefaultPadding, 0, cDefaultPadding, cDefaultPadding),
+        //   color: cPrimaryColor,
+        //   child: Row(
+        //     children: const [
+        // FillOutlineButton(press: () {}, text: "Recent Message"),
+        // SizedBox(width: cDefaultPadding),
+        // FillOutlineButton(
+        //   press: () {},
+        //   text: "Active",
+        //   isFilled: false,
+        // ),
+        //     ],
+        //   ),
+        // ),
         Expanded(
           child: ListView.builder(
             itemCount: chatsData.length,

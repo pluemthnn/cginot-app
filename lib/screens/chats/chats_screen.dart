@@ -10,7 +10,7 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-  int _selectedIndex = 1;
+  // int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       body: Body(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        backgroundColor: cPrimaryColor,
+        backgroundColor: cNavColor,
         child: const Icon(
           Icons.person_add_alt_1,
           color: Colors.white,
@@ -55,10 +55,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   AppBar buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text("Chats"),
+      title: const Text("Chats"),
       actions: [
         IconButton(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           onPressed: () {},
         ),
       ],

@@ -36,7 +36,7 @@ class ChatCard extends StatelessWidget {
                       height: 16,
                       width: 16,
                       decoration: BoxDecoration(
-                        color: cPrimaryColor,
+                        color: Colors.green,
                         shape: BoxShape.circle,
                         border: Border.all(
                             color: Theme.of(context).scaffoldBackgroundColor,
@@ -55,8 +55,10 @@ class ChatCard extends StatelessWidget {
                   children: [
                     Text(
                       chat.name,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFC3DDFD)),
                     ),
                     SizedBox(height: 8),
                     Opacity(
@@ -65,6 +67,7 @@ class ChatCard extends StatelessWidget {
                         chat.lastMessage,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Color(0xFFC3DDFD)),
                       ),
                     ),
                   ],

@@ -1,6 +1,6 @@
 # cginot_app
 
-A new Flutter project.
+ITCS424 Flutter project.
 
 ## Getting Started
 
