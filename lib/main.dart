@@ -1,9 +1,5 @@
 import 'package:cginot_app/constants.dart';
 import 'package:cginot_app/routes.dart';
-import 'package:cginot_app/screens/chats/chats_screen.dart';
-import 'package:cginot_app/screens/profile/profile_screen.dart';
-// import 'package:cginot_app/screens/onboard/onboard_screen.dart';
-// import 'package:cginot_app/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,7 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'cginot',
       theme: ThemeData(
@@ -42,9 +38,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: _colorSwatch,
         // primaryColor: cBarColor,
       ),
-      initialRoute: ProfileScreen.routeName,
-      routes: routes,
-      // home: OnboardScreen(),
+      routeInformationParser: routes.routeInformationParser,
+      routerDelegate: routes.routerDelegate,
     );
   }
 }

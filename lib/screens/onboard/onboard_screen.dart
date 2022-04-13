@@ -1,3 +1,4 @@
+import 'package:cginot_app/models/buttom_bar.dart';
 import 'package:cginot_app/screens/onboard/components/body.dart';
 import 'package:cginot_app/size_config.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class OnboardScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       body: Body(),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 }
