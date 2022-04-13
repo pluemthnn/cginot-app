@@ -59,7 +59,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
       actions: [
         IconButton(
           icon: const Icon(Icons.search),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/profile');
+          },
         ),
       ],
     );

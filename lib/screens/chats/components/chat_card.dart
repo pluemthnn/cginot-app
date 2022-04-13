@@ -1,4 +1,4 @@
-import 'package:cginot_app/models/char.dart';
+import 'package:cginot_app/models/chat.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

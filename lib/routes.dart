@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:cginot_app/screens/chats/chats_screen.dart';
 import 'package:cginot_app/screens/onboard/onboard_screen.dart';
 import 'package:cginot_app/screens/profile/profile_screen.dart';
