@@ -45,7 +45,7 @@ class NotiCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Color(0xFFC3DDFD)),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 15),
                     Opacity(
                       opacity: 0.64,
                       child: Text(

@@ -1,3 +1,4 @@
+import 'package:cginot_app/models/buttom_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -17,40 +18,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
-      // bottomNavigationBar: buildBottomNavigationBar(),
-    );
-  }
-
-  BottomNavigationBar buildBottomNavigationBar() {
-    // var _selectedIndex;
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      // currentIndex: _selectedIndex,
-      // onTap: (value) {
-      //   setState(() {
-      //     _selectedIndex = value;
-      //   });
-      // },
-      items: [
-        const BottomNavigationBarItem(
-            icon: Icon(Icons.messenger), label: "Chats"),
-        const BottomNavigationBarItem(
-            icon: Icon(Icons.people), label: "People"),
-        const BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
-        const BottomNavigationBarItem(
-          icon: CircleAvatar(
-            radius: 14,
-            backgroundImage: AssetImage("assets/images/user_2.png"),
-          ),
-          label: "Profile",
-        ),
-      ],
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
   AppBar buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
+      shape: const Border(
+          bottom: BorderSide(
+        color: Colors.grey,
+        width: 1,
+      )),
       title: const Text("Notification"),
       actions: [
         IconButton(
