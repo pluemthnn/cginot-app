@@ -1,30 +1,23 @@
-import 'package:cginot_app/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-class ChatsScreen extends StatefulWidget {
+class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({Key? key}) : super(key: key);
+
   @override
-  _ChatsScreenState createState() => _ChatsScreenState();
-  static String routeName = '/chats';
+  _NotificationsScreenState createState() => _NotificationsScreenState();
+  static String routeName = '/notifications';
 }
 
-class _ChatsScreenState extends State<ChatsScreen> {
+class _NotificationsScreenState extends State<NotificationsScreen> {
   // int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: cNavColor,
-        child: const Icon(
-          Icons.person_add_alt_1,
-          color: Colors.white,
-        ),
-      ),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      // bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
@@ -58,10 +51,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   AppBar buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: const Text("Chats"),
+      title: const Text("Notification"),
       actions: [
         IconButton(
-          icon: const Icon(Icons.search),
+          icon: const Icon(Icons.delete),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/profile');
           },
