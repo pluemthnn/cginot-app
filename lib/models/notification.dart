@@ -13,7 +13,7 @@ class Notifications {
 List notificationData = [
   Notifications(
     titleMessage: "Hope you are doing well...",
-    replyMessage: "",
+    replyMessage: "Lorem ipsum dolor sit amet,",
     time: "3m ago",
     isRead: false,
   ),
