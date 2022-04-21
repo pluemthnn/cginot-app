@@ -56,6 +56,12 @@ class BottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           NavItem(
+            onPressed: () => context.go('/forum'),
+            bottomIcons: Icons.forum_rounded,
+            text: 'Forum',
+            isOnSelect: currentRoute == '/forum',
+          ),
+          NavItem(
             onPressed: () => context.go('/notifications'),
             bottomIcons: Icons.notifications,
             text: 'Notification',
