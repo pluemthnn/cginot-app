@@ -24,6 +24,28 @@ const cGray = Color(0xFF4F5865);
 const cDarkGray = Color(0xFF252F3F);
 const cNavColor = Color(0xFF161E2E);
 
+class AppColorsTheme {
+  Color primarySwatch;
+  Color titleBarGradientStartColor;
+  Color titleBarGradientEndColor;
+  Color textColor;
+  Color secondaryGradientColor;
+
+  AppColorsTheme(
+      {required this.primarySwatch,
+      required this.titleBarGradientStartColor,
+      required this.titleBarGradientEndColor,
+      required this.textColor,
+      required this.secondaryGradientColor});
+
+  static final AppColorsTheme myTheme = new AppColorsTheme(
+      primarySwatch: Colors.deepPurple,
+      titleBarGradientStartColor: Colors.deepPurple,
+      titleBarGradientEndColor: Colors.deepPurple,
+      textColor: Colors.black,
+      secondaryGradientColor: Colors.grey.shade300);
+}
+
 // data type
 
 class UserProfileData {
@@ -34,16 +56,16 @@ class UserProfileData {
 
   UserProfileData(
       {this.Name = "",
-       this.Thumbnail = "",
-       this.LikeList = 0,
-       this.CommnetList = 0,
-       this.Token = ''});
+      this.Thumbnail = "",
+      this.LikeList = 0,
+      this.CommnetList = 0,
+      this.Token = ''});
 }
 
 var MockUserData = UserProfileData(
   Thumbnail: "",
   Name: "Annonymous",
-  LikeList: 15, 
+  LikeList: 15,
   CommnetList: 2,
   Token: "a83373a8-2d58-11ea-978f-2e728ce88125",
 );

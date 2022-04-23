@@ -1,5 +1,5 @@
 import 'package:cginot_app/screens/chats/chats_screen.dart';
-import 'package:cginot_app/screens/forum/forum_screen.dart';
+import 'package:cginot_app/screens/forum/forum.dart';
 import 'package:cginot_app/screens/login/login_screen.dart';
 import 'package:cginot_app/screens/notification/noti_screen.dart';
 import 'package:cginot_app/screens/onboard/onboard_screen.dart';
@@ -44,7 +44,7 @@ final routes = GoRouter(
       name: 'Forum',
       path: '/forum',
       builder: (context, state) {
-        return ForumScreen();
+        return new ForumPage();
       },
     ),
   ],
