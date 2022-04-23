@@ -1,5 +1,7 @@
 import 'package:cginot_app/constants.dart';
+import 'package:cginot_app/models/buttom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ForumPage extends StatefulWidget {
   @override
@@ -31,6 +33,17 @@ class _ForumPageState extends State<ForumPage> {
         itemCount: listItemsData.length,
         shrinkWrap: true,
       )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go('/createpost');
+        },
+        backgroundColor: cNavColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 }
