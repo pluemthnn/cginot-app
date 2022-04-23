@@ -10,64 +10,82 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cBackgroundColor,
       body: Container(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FadeAnimation(
                 1.2,
-                Text(
+                const Text(
                   "Login",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             FadeAnimation(
                 1.5,
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom:
-                                    BorderSide(color: Colors.grey.shade300))),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.withOpacity(.8)),
-                              hintText: "Email or Phone number"),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom:
+                                      BorderSide(color: Colors.grey.shade300))),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.withOpacity(.8)),
+                                hintText: "Email or Phone number"),
+                          ),
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.withOpacity(.8)),
-                              hintText: "Password"),
+                        Container(
+                          decoration: const BoxDecoration(),
+                          child: TextFormField(
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.withOpacity(.8)),
+                                hintText: "Password"),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             FadeAnimation(
@@ -75,13 +93,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 Center(
                   child: Container(
                     width: 120,
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(60),
                         color: Colors.blue[800]),
                     child: Center(
                         child: TextButton(
-                            onPressed: () => context.go('/'),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                // // If the form is valid, display a snackbar.
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // );
+                                context.go('/');
+                              }
+                            },
                             child: Text(
                               "Login",
                               style: TextStyle(
