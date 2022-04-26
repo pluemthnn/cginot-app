@@ -19,6 +19,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
+  Future firebaseGuest({required BuildContext context}) async {
+    late bool isLogin = false;
+    try {
+      await _firebaseAuth.signInAnonymously();
+      isLogin = true;
+    } on FirebaseAuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    if (isLogin) {
+      context.go('/forum');
+    }
+  }
+
   Future firebaseLogin(
       {required String email,
       required String password,
@@ -175,6 +191,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             ))),
                   ),
                 )),
+            FadeAnimation(
+                1.8,
+                Center(
+                  child: TextButton(
+                      onPressed: () => {firebaseGuest(context: context)},
+                      child: Text(
+                        "Guest login",
+                        style: TextStyle(color: Colors.white.withOpacity(.7)),
+                      )),
+                ))
           ],
         ),
       ),
