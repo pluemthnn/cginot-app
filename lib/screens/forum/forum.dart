@@ -2,7 +2,6 @@ import 'package:cginot_app/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:cginot_app/models/buttom_bar.dart';
 import 'package:go_router/go_router.dart';
 
 class ForumPage extends StatefulWidget {
