@@ -1,4 +1,6 @@
+import 'package:cginot_app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ForumDetailPage extends StatefulWidget {
   @override
@@ -33,7 +35,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                IconWithText(Icons.laptop_mac, "Technology",
+                IconWithText(Icons.comment, "Technology",
                     iconColor: Colors.amber),
                 IconWithText(
                   Icons.check_circle,
@@ -45,7 +47,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
               ],
             ),
           ),
-          const Divider()
+          const Divider(),
         ],
       ),
     );
@@ -60,6 +62,12 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            context.go('/forum');
+          },
+          icon: Icon(Icons.home_outlined),
+        ),
         title: const Text("Forum 1"),
       ),
       body: Column(
@@ -71,6 +79,16 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
             child: responses,
           ))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go('/Comment');
+        },
+        backgroundColor: cNavColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
