@@ -74,21 +74,48 @@ class _LoginScreenState extends State<LoginScreen> {
                 1.8,
                 Center(
                   child: Container(
-                    width: 120,
+                    width: 150,
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(60),
                         color: Colors.blue[800]),
-                    child: Center(
-                        child: TextButton(
-                            onPressed: () => context.go('/'),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(.7)),
-                            ))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: TextButton(
+                              onPressed: () => context.go('/'),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(.7)),
+                              )),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: TextButton(
+                              onPressed: () => context.go('/'),
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(.7)),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 )),
+            FadeAnimation(
+                1.8,
+                Center(
+                  child: TextButton(
+                      onPressed: () => context.go('/'),
+                      child: Text(
+                        "Guest login",
+                        style: TextStyle(color: Colors.white.withOpacity(.7)),
+                      )),
+                ))
           ],
         ),
       ),
