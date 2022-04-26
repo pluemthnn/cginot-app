@@ -30,8 +30,8 @@ class FirestoreUpload {
   }
 }
 
-class ForumCreateScreen extends HookWidget {
-  const ForumCreateScreen({Key? key}) : super(key: key);
+class AddCommentScreen extends HookWidget {
+  const AddCommentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ForumCreateScreen extends HookWidget {
                 FadeAnimation(
                     1,
                     const Text(
-                      "Create post",
+                      "Add Comment",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 40,
@@ -73,26 +73,6 @@ class ForumCreateScreen extends HookWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Colors.grey.shade300))),
-                            child: TextFormField(
-                              controller: _titleController,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey.withOpacity(.8)),
-                                  hintText: "Title"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
                               decoration: const BoxDecoration(),
                               child: TextFormField(
                                 controller: _detailController,
@@ -102,7 +82,7 @@ class ForumCreateScreen extends HookWidget {
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(
                                         color: Colors.grey.withOpacity(.8)),
-                                    hintText: "Detail"),
+                                    hintText: "Your Comment"),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
@@ -120,7 +100,7 @@ class ForumCreateScreen extends HookWidget {
                                     _titleController.text.trim(),
                                     _detailController.text.trim());
                               }
-                              context.go('/forum');
+                              context.go('/detail');
                             },
                             child: const Text('Save'),
                           ),

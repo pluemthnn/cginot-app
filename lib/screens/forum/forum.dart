@@ -26,9 +26,8 @@ class _ForumPageState extends State<ForumPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
         elevation: 0.0,
-        title: const Text("forum"),
+        title: const Text("Forum"),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('forum').snapshots(),
@@ -61,7 +60,6 @@ class _ForumPageState extends State<ForumPage> {
           color: Colors.white,
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 }
@@ -126,6 +124,7 @@ class EntryItem extends StatelessWidget {
           color: AppColorsTheme.myTheme.primarySwatch,
         ),
         onTap: () {
+          context.go('/detail');
           // Navigator.pushNamed(context, '/forum/1');
         },
       ),

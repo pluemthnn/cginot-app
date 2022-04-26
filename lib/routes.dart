@@ -1,5 +1,7 @@
 import 'package:cginot_app/screens/chats/chats_screen.dart';
+import 'package:cginot_app/screens/forum/components/add_comment.dart';
 import 'package:cginot_app/screens/forum/components/forum_create.dart';
+import 'package:cginot_app/screens/forum/components/forum_detail.dart';
 import 'package:cginot_app/screens/forum/forum.dart';
 import 'package:cginot_app/screens/login/login_screen.dart';
 import 'package:cginot_app/screens/notification/noti_screen.dart';
@@ -49,11 +51,25 @@ final routes = GoRouter(
       },
     ),
     GoRoute(
+      name: 'Detail',
+      path: '/detail',
+      builder: (context, state) {
+        return ForumDetailPage();
+      },
+    ),
+    GoRoute(
       name: 'Createpost',
       path: '/createpost',
       builder: (context, state) {
         return ForumCreateScreen();
       },
     ),
+    GoRoute(
+      name: 'Comment',
+      path: '/Comment',
+      builder: (context, state) {
+        return AddCommentScreen();
+      },
+    )
   ],
 );
