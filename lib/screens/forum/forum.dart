@@ -2,7 +2,7 @@ import 'package:cginot_app/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:cginot_app/models/buttom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
 class ForumPage extends StatefulWidget {
@@ -22,13 +22,28 @@ class _ForumPageState extends State<ForumPage> {
   //   ListEntry("Forum 6", "test", "description 6", 12, 1, true),
   // ];
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    context.go('/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
         elevation: 0.0,
-        title: const Text("forum"),
+        title: const Text("Forum"),
+        actions: <Widget>[
+          Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: (() => {_signOut()}),
+                child: const Icon(
+                  Icons.logout,
+                  size: 26.0,
+                ),
+              )),
+        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('forum').snapshots(),
@@ -61,7 +76,6 @@ class _ForumPageState extends State<ForumPage> {
           color: Colors.white,
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 }
@@ -111,6 +125,21 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getTimeDifferenceFromNow(String dateTime) {
+      Duration difference = DateTime.now().difference(DateTime.parse(dateTime));
+      if (difference.inSeconds < 5) {
+        return "Just now";
+      } else if (difference.inMinutes < 1) {
+        return "${difference.inSeconds}s ago";
+      } else if (difference.inHours < 1) {
+        return "${difference.inMinutes}m ago";
+      } else if (difference.inHours < 24) {
+        return "${difference.inHours}h ago";
+      } else {
+        return "${difference.inDays}d ago";
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 45.75),
       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -120,12 +149,14 @@ class EntryItem extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(snap['title']),
-        subtitle: Text(snap['description']),
+        subtitle: Text(snap['detail']),
+        trailing: Text(getTimeDifferenceFromNow(snap['date'])),
         leading: Icon(
           Icons.dashboard,
           color: AppColorsTheme.myTheme.primarySwatch,
         ),
         onTap: () {
+          context.go("/detail?postID=${snap['postID']}");
           // Navigator.pushNamed(context, '/forum/1');
         },
       ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../forum/forum.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -91,118 +93,138 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cBackgroundColor,
-      body: Container(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FadeAnimation(
-                1.2,
-                const Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
-                )),
-            const SizedBox(
-              height: 30,
-            ),
-            FadeAnimation(
-                1.5,
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom:
-                                      BorderSide(color: Colors.grey.shade300))),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            controller: emailController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.withOpacity(.8)),
-                                hintText: "Email"),
-                          ),
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const ForumPage();
+            } else if (snapshot.hasError) {
+              if (kDebugMode) {
+                print(snapshot.error);
+              }
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FadeAnimation(
+                    1.2,
+                    const Text(
+                      "Login",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold),
+                    )),
+                const SizedBox(
+                  height: 30,
+                ),
+                FadeAnimation(
+                    1.5,
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.grey.shade300))),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey.withOpacity(.8)),
+                                    hintText: "Email"),
+                              ),
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(),
+                              child: TextFormField(
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                controller: passController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey.withOpacity(.8)),
+                                    hintText: "Password"),
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          decoration: const BoxDecoration(),
-                          child: TextFormField(
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            controller: passController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.withOpacity(.8)),
-                                hintText: "Password"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-            const SizedBox(
-              height: 40,
+                      ),
+                    )),
+                const SizedBox(
+                  height: 40,
+                ),
+                FadeAnimation(
+                    1.8,
+                    Center(
+                      child: Container(
+                        width: 120,
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            color: Colors.blue[800]),
+                        child: Center(
+                            child: TextButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    firebaseLogin(
+                                        email: emailController.text.trim(),
+                                        password: passController.text.trim(),
+                                        context: context);
+                                  }
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      color: Colors.white.withOpacity(.7)),
+                                ))),
+                      ),
+                    )),
+                FadeAnimation(
+                    1.8,
+                    Center(
+                      child: TextButton(
+                          onPressed: () => {firebaseGuest(context: context)},
+                          child: Text(
+                            "Guest login",
+                            style:
+                                TextStyle(color: Colors.white.withOpacity(.7)),
+                          )),
+                    ))
+              ],
             ),
-            FadeAnimation(
-                1.8,
-                Center(
-                  child: Container(
-                    width: 120,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(60),
-                        color: Colors.blue[800]),
-                    child: Center(
-                        child: TextButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                firebaseLogin(
-                                    email: emailController.text.trim(),
-                                    password: passController.text.trim(),
-                                    context: context);
-                              }
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(.7)),
-                            ))),
-                  ),
-                )),
-            FadeAnimation(
-                1.8,
-                Center(
-                  child: TextButton(
-                      onPressed: () => {firebaseGuest(context: context)},
-                      child: Text(
-                        "Guest login",
-                        style: TextStyle(color: Colors.white.withOpacity(.7)),
-                      )),
-                ))
-          ],
-        ),
+          );
+        },
       ),
     );
   }

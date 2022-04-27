@@ -1,76 +1,122 @@
+import 'package:cginot_app/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ForumDetailPage extends StatefulWidget {
+  final String postID;
+
+  const ForumDetailPage({required this.postID});
+
   @override
-  _ForumDetailPageState createState() => _ForumDetailPageState();
+  _ForumDetailPageState createState() => _ForumDetailPageState(postID: postID);
 }
 
-var ForumPostArr = [
-  ForumPostEntry("User1", "2 Days ago", 0, 0,
-      "Hello,\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-  ForumPostEntry("User2", "23 Hours ago", 1, 0,
-      "Pellentesque justo metus, finibus porttitor consequat vitae, tincidunt vitae quam. Vestibulum molestie sem diam. Nullam pretium semper tempus. Maecenas lobortis lacus nunc, id lacinia nunc imperdiet tempor. Mauris mi ipsum, finibus consectetur eleifend a, maximus eget lorem. Praesent a magna nibh. In congue sapien sed velit mattis sodales. Nam tempus pulvinar metus, in gravida elit tincidunt in. Curabitur sed sapien commodo, fringilla tortor eu, accumsan est. Proin tincidunt convallis dolor, a faucibus sapien auctor sodales. Duis vitae dapibus metus. Nulla sit amet porta ipsum, posuere tempor tortor.\n\nCurabitur mauris dolor, cursus et mi id, mattis sagittis velit. Duis eleifend mi et ante aliquam elementum. Ut feugiat diam enim, at placerat elit semper vitae. Phasellus vulputate quis ex eu dictum. Cras sapien magna, faucibus at lacus vel, faucibus viverra lorem. Phasellus quis dui tristique, ultricies velit non, cursus lectus. Suspendisse neque nisl, vestibulum non dui in, vulputate placerat elit. Sed at convallis mauris, eu blandit dolor. Vivamus suscipit iaculis erat eu condimentum. Aliquam erat volutpat. Curabitur posuere commodo arcu vel consectetur."),
-  ForumPostEntry("User3", "2 Days ago", 5, 0,
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-  ForumPostEntry("User4", "2 Days ago", 0, 0,
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-];
+// var ForumPostArr = [
+//   ForumPostEntry("User1", "2 Days ago", 0, 0,
+//       "Hello,\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+//   ForumPostEntry("User2", "23 Hours ago", 1, 0,
+//       "Pellentesque justo metus, finibus porttitor consequat vitae, tincidunt vitae quam. Vestibulum molestie sem diam. Nullam pretium semper tempus. Maecenas lobortis lacus nunc, id lacinia nunc imperdiet tempor. Mauris mi ipsum, finibus consectetur eleifend a, maximus eget lorem. Praesent a magna nibh. In congue sapien sed velit mattis sodales. Nam tempus pulvinar metus, in gravida elit tincidunt in. Curabitur sed sapien commodo, fringilla tortor eu, accumsan est. Proin tincidunt convallis dolor, a faucibus sapien auctor sodales. Duis vitae dapibus metus. Nulla sit amet porta ipsum, posuere tempor tortor.\n\nCurabitur mauris dolor, cursus et mi id, mattis sagittis velit. Duis eleifend mi et ante aliquam elementum. Ut feugiat diam enim, at placerat elit semper vitae. Phasellus vulputate quis ex eu dictum. Cras sapien magna, faucibus at lacus vel, faucibus viverra lorem. Phasellus quis dui tristique, ultricies velit non, cursus lectus. Suspendisse neque nisl, vestibulum non dui in, vulputate placerat elit. Sed at convallis mauris, eu blandit dolor. Vivamus suscipit iaculis erat eu condimentum. Aliquam erat volutpat. Curabitur posuere commodo arcu vel consectetur."),
+//   ForumPostEntry("User3", "2 Days ago", 5, 0,
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+//   ForumPostEntry("User4", "2 Days ago", 0, 0,
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+// ];
 
 class _ForumDetailPageState extends State<ForumDetailPage> {
+  final String postID;
+
+  _ForumDetailPageState({required this.postID});
+
   @override
   Widget build(BuildContext context) {
-    var questionSection = Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          const Text(
-            "How do I become a expert in programming as well as design ??",
-            textScaleFactor: 1.5,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconWithText(Icons.laptop_mac, "Technology",
-                    iconColor: Colors.amber),
-                IconWithText(
-                  Icons.check_circle,
-                  "Answered",
-                  iconColor: Colors.green,
-                ),
-                IconWithText(Icons.remove_red_eye, "54",
-                    iconColor: Colors.amber)
-              ],
-            ),
-          ),
-          const Divider()
-        ],
-      ),
-    );
+    // late String title;
+    // late String views;
+    // var data;
 
-    var responses = Container(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) =>
-              ForumPost(ForumPostArr[index]),
-          itemCount: ForumPostArr.length,
-        ));
+    // var questionSection = Padding(
+    //   padding: const EdgeInsets.all(8.0),
+    //   child: Column(
+    //     children: <Widget>[
+    //       Text(
+    //         "title.toString()",
+    //         textScaleFactor: 1.5,
+    //         style: TextStyle(fontWeight: FontWeight.bold),
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(20.0),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //           children: <Widget>[
+    //             IconWithText(Icons.remove_red_eye, "view.toString()",
+    //                 iconColor: Colors.amber)
+    //           ],
+    //         ),
+    //       ),
+    //       const Divider(),
+    //     ],
+    //   ),
+    // );
+
+    // var responses = Container(
+    //     padding: const EdgeInsets.all(8.0),
+    //     child: ListView.builder(
+    //       itemBuilder: (BuildContext context, int index) =>
+    //           ForumPost(ForumPostArr[index]),
+    //       itemCount: ForumPostArr.length,
+    //     ));
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Forum 1"),
+        leading: IconButton(
+          onPressed: () {
+            context.go('/forum');
+          },
+          icon: Icon(Icons.home_outlined),
+        ),
+        title: const Text("Comment"),
       ),
-      body: Column(
-        children: <Widget>[
-          questionSection,
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: responses,
-          ))
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('forum')
+                  .doc(postID)
+                  .collection('comment')
+                  .snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (kDebugMode) {
+                  print(postID);
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      ForumPost(snap: snapshot.data!.docs[index].data()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go("/Comment?postID=${postID}");
+        },
+        backgroundColor: cNavColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -88,12 +134,29 @@ class ForumPostEntry {
 }
 
 class ForumPost extends StatelessWidget {
-  final ForumPostEntry entry;
+  final snap;
 
-  ForumPost(this.entry);
+  const ForumPost({Key? key, required this.snap}) : super(key: key);
+
+  String getTimeDifferenceFromNow(String dateTime) {
+    Duration difference = DateTime.now().difference(DateTime.parse(dateTime));
+    if (difference.inSeconds < 5) {
+      return "Just now";
+    } else if (difference.inMinutes < 1) {
+      return "${difference.inSeconds}s ago";
+    } else if (difference.inHours < 1) {
+      return "${difference.inMinutes}m ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours}h ago";
+    } else {
+      return "${difference.inDays}d ago";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(snap);
+
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -119,31 +182,11 @@ class ForumPost extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(entry.username),
-                      Text(entry.hours),
+                      Text(snap['userID']),
+                      Text(getTimeDifferenceFromNow(snap['date'])),
                     ],
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(2.0),
-                      child: const Icon(Icons.thumb_up),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(entry.likes.toString()),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(2.0),
-                      child: const Icon(Icons.thumb_down),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0, left: 2.0),
-                      child: Text(entry.dislikes.toString()),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
@@ -155,7 +198,7 @@ class ForumPost extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0))),
-            child: Text(entry.text),
+            child: Text(snap['text'].toString()),
           ),
         ],
       ),

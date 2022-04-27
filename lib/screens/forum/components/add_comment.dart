@@ -8,39 +8,47 @@ import 'package:uuid/uuid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Post {
-  final String title;
   final String detail;
   final String date;
   final String postID;
   final String uid;
-  final int views;
+  final int likeCount;
+  final int dislikeCount;
 
-  Post(this.title, this.detail, this.date, this.postID, this.uid, this.views);
+  Post(this.detail, this.date, this.postID, this.uid, this.likeCount,
+      this.dislikeCount);
 
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'detail': detail,
+        'text': detail,
         'date': date,
         'postID': postID,
         'userID': uid,
-        'views': views,
+        'likeCount': likeCount,
+        'dislikeCount': dislikeCount,
       };
 }
 
 class FirestoreUpload {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String postID = const Uuid().v1();
+  String commenttID = const Uuid().v1();
 
-  uploadPost(String title, String detail, User? uid) {
-    Post post = Post(title, detail, DateTime.now().toString(), postID,
-        uid!.uid.toString(), 0);
-    _firestore.collection('forum').doc(postID).set(post.toJson());
+  uploadPost(String detail, User? uid, String postID) {
+    Post post = Post(
+        detail, DateTime.now().toString(), postID, uid!.uid.toString(), 0, 0);
+    _firestore
+        .collection('forum')
+        .doc(postID)
+        .collection('comment')
+        .doc(commenttID)
+        .set(post.toJson());
   }
 }
 
-class ForumCreateScreen extends HookWidget {
-  const ForumCreateScreen({Key? key}) : super(key: key);
+class AddCommentScreen extends HookWidget {
+  final String postID;
+
+  const AddCommentScreen({required this.postID});
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +58,15 @@ class ForumCreateScreen extends HookWidget {
     final _detailController = useTextEditingController();
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            context.go('/forum');
+          },
+          icon: Icon(Icons.home_outlined),
+        ),
+        title: const Text("Add comment"),
+      ),
       backgroundColor: cBackgroundColor,
       body: Container(
           padding: const EdgeInsets.all(30),
@@ -57,15 +74,6 @@ class ForumCreateScreen extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                FadeAnimation(
-                    1,
-                    const Text(
-                      "Create post",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold),
-                    )),
                 const SizedBox(
                   height: 30,
                 ),
@@ -82,26 +90,6 @@ class ForumCreateScreen extends HookWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Colors.grey.shade300))),
-                            child: TextFormField(
-                              controller: _titleController,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey.withOpacity(.8)),
-                                  hintText: "Title"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
                               decoration: const BoxDecoration(),
                               child: TextFormField(
                                 controller: _detailController,
@@ -111,7 +99,7 @@ class ForumCreateScreen extends HookWidget {
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(
                                         color: Colors.grey.withOpacity(.8)),
-                                    hintText: "Detail"),
+                                    hintText: "Your Comment"),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
@@ -123,14 +111,16 @@ class ForumCreateScreen extends HookWidget {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                print(_titleController.text);
+                                print(FirebaseAuth.instance.currentUser!.uid
+                                    .toString());
+                                print(postID);
                                 print(_detailController.text);
                                 FirestoreUpload().uploadPost(
-                                    _titleController.text.trim(),
                                     _detailController.text.trim(),
-                                    FirebaseAuth.instance.currentUser);
+                                    FirebaseAuth.instance.currentUser,
+                                    postID);
                               }
-                              context.go('/forum');
+                              context.go("/detail?postID=${postID}");
                             },
                             child: const Text('Save'),
                           ),
