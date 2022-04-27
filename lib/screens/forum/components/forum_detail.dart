@@ -159,16 +159,16 @@ class ForumPost extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(5.0),
-      decoration: BoxDecoration(
-        color: Colors.deepPurple[200],
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+      decoration: const BoxDecoration(
+        color: cLightGray,
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
       ),
       child: Column(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              color: Colors.deepPurple[300],
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              color: cNavColor,
+              borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0)),
             ),
@@ -191,14 +191,15 @@ class ForumPost extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
+            margin: const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 3.0),
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-                color: Colors.grey[200],
+                // color: Colors.grey[100],
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0))),
-            child: Text(snap['text'].toString()),
+            child: Text(snap['text'].toString(),
+                style: TextStyle(color: Colors.grey[100], fontSize: 18)),
           ),
         ],
       ),

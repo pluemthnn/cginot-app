@@ -151,9 +151,9 @@ class EntryItem extends StatelessWidget {
         title: Text(snap['title']),
         subtitle: Text(snap['detail']),
         trailing: Text(getTimeDifferenceFromNow(snap['date'])),
-        leading: Icon(
+        leading: const Icon(
           Icons.dashboard,
-          color: AppColorsTheme.myTheme.primarySwatch,
+          color: cNavColor,
         ),
         onTap: () {
           context.go("/detail?postID=${snap['postID']}");
